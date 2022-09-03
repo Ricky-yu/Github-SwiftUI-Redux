@@ -44,6 +44,6 @@ class Store: ObservableObject {
         self.reducer = reducer
     }
     func dispatch(_ action: Action) {
-        self.reducer.update(&appState, action)
+        self.reducer.reduce(&appState, action)
     }
 }
