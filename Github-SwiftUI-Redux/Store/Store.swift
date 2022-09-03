@@ -22,7 +22,14 @@ enum Action {
 }
 
 class Reducer {
+    func reduce(_ appState: inout AppState, _ action: Action) {
+        switch action {
+        case .updateRepositories(let repositories): break
 
+        case .search(let repositoryName): break
+
+        case .showAlertMessage(let errorMessage): break
+    }
 }
 
 class Store: ObservableObject {
