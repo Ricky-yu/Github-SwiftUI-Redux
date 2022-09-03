@@ -14,6 +14,7 @@
 		745FD56A28C3856F00F85291 /* Github_SwiftUI_ReduxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD56928C3856F00F85291 /* Github_SwiftUI_ReduxTests.swift */; };
 		745FD57428C3857000F85291 /* Github_SwiftUI_ReduxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD57328C3857000F85291 /* Github_SwiftUI_ReduxUITests.swift */; };
 		745FD57628C3857000F85291 /* Github_SwiftUI_ReduxUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD57528C3857000F85291 /* Github_SwiftUI_ReduxUITestsLaunchTests.swift */; };
+		745FD58528C38CBB00F85291 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD58428C38CBB00F85291 /* Store.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		745FD56F28C3856F00F85291 /* Github-SwiftUI-ReduxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Github-SwiftUI-ReduxUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		745FD57328C3857000F85291 /* Github_SwiftUI_ReduxUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github_SwiftUI_ReduxUITests.swift; sourceTree = "<group>"; };
 		745FD57528C3857000F85291 /* Github_SwiftUI_ReduxUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github_SwiftUI_ReduxUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		745FD58428C38CBB00F85291 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		745FD55728C3856900F85291 /* Github-SwiftUI-Redux */ = {
 			isa = PBXGroup;
 			children = (
+				745FD58328C38C8100F85291 /* Store */,
 				745FD55828C3856900F85291 /* Github_SwiftUI_ReduxApp.swift */,
 				745FD55A28C3856900F85291 /* ContentView.swift */,
 				745FD55C28C3856F00F85291 /* Assets.xcassets */,
@@ -125,6 +128,14 @@
 				745FD57528C3857000F85291 /* Github_SwiftUI_ReduxUITestsLaunchTests.swift */,
 			);
 			path = "Github-SwiftUI-ReduxUITests";
+			sourceTree = "<group>";
+		};
+		745FD58328C38C8100F85291 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				745FD58428C38CBB00F85291 /* Store.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				745FD58528C38CBB00F85291 /* Store.swift in Sources */,
 				745FD55B28C3856900F85291 /* ContentView.swift in Sources */,
 				745FD55928C3856900F85291 /* Github_SwiftUI_ReduxApp.swift in Sources */,
 			);
