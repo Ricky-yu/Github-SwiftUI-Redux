@@ -8,7 +8,11 @@
 import Foundation
 
 struct AppState {
-
+    var searchText: String = ""
+    var items: [GithubRepository] = []
+    var isLoading: Bool = false
+    var isShowAlert: Bool = false
+    var alertMessage: String = ""
 }
 
 enum Action {
