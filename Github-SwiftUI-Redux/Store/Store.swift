@@ -28,7 +28,10 @@ class Reducer {
 
         case .search(let repositoryName): break
 
-        case .showAlertMessage(let errorMessage): break
+        case .showAlertMessage(let errorMessage):
+            appState.alertMessage = errorMessage
+            appState.isShowAlert = true
+        }
     }
 }
 
