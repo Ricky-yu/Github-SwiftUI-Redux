@@ -16,7 +16,9 @@ struct AppState {
 }
 
 enum Action {
-
+    case updateRepositories([GithubRepository])
+    case search(text: String)
+    case showAlertMessage(message: String)
 }
 
 class Reducer {
