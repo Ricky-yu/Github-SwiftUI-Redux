@@ -20,5 +20,11 @@ class Reducer {
 }
 
 class Store: ObservableObject {
+    var reducer: Reducer
+    @Published var appState: AppState
 
+    init(appState: AppState, reducer: Reducer) {
+        self.appState = appState
+        self.reducer = reducer
+    }
 }
