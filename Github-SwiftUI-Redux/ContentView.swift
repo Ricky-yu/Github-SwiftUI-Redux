@@ -28,7 +28,7 @@ struct ContentView: View {
         .onChange(of: store.appState.searchText) { newSearchText in
             store.debounceTimer?.invalidate()
             store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                if !newSearchText.isEmpty {
+                if !newSearchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     store.dispatch(searchRepository.init(nameRepositroy: newSearchText))
                 }
             }

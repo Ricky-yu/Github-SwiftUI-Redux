@@ -18,7 +18,7 @@ final class APIClient {
         let pathURL = URL(string: "/search/repositories", relativeTo: baseURL)!
         var urlComponents = URLComponents(url: pathURL, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
-            .init(name: "q", value: repositroyName.trimmingCharacters(in: .whitespacesAndNewlines))
+            .init(name: "q", value: repositroyName)
         ]
         var request = URLRequest(url: urlComponents.url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
