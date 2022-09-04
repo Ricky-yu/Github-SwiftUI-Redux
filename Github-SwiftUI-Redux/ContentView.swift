@@ -25,8 +25,16 @@ struct ContentView: View {
             .navigationTitle(Text("Github Repository"))
         }
         .searchable(text: $store.appState.searchText)
+        .onChange(of: store.appState.searchText) { newSearchText in
+            store.debounceTimer?.invalidate()
+            store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                if !newSearchText.isEmpty {
+                    store.dispatch(searchRepository.init(nameRepositroy: newSearchText))
+                }
+            }
+        }
         .onSubmit(of: .search, {
-
+            store.dispatch(searchRepository.init(nameRepositroy: store.appState.searchText))
         })
         .alert(isPresented: $store.appState.isShowAlert) {
             Alert(
