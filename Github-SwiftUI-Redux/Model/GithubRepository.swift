@@ -8,6 +8,17 @@
 import Foundation
 
 struct GithubRepository: Codable, Identifiable {
-    var id: Int
+    let id: Int
+    let repositoryName: String
+    let starCount: Int
+    let repositoryUrl: String
+    let repositoryOwner: GithubRepositoryOwner
 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case repositoryName = "full_name"
+        case starCount = "stargazers_count"
+        case repositoryUrl = "html_url"
+        case repositoryOwner = "owner"
+    }
 }
