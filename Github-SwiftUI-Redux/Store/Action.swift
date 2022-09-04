@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol Action { }
+protocol Action { }
 
 struct searchRepository: Action {
     var nameRepositroy: String
