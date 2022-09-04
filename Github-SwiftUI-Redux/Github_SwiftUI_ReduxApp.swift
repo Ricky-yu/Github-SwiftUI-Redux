@@ -13,7 +13,8 @@ struct Github_SwiftUI_ReduxApp: App {
         WindowGroup {
             let appState = AppState()
             let reducer = Reducer()
-            let store = Store(appState: appState, reducer: reducer)
+            let sessionMiddleware = sessionMiddleware(network: APIClient())
+            let store = Store(appState: appState, reducer: reducer, middlewares: [sessionMiddleware])
 
             ContentView().environmentObject(store)
         }
