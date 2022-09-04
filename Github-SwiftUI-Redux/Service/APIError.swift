@@ -14,7 +14,7 @@ enum APIError: Error {
     var message: String {
         switch self {
         case .responseError:
-            return "network error"
+            return "search error"
         case .jsonParseError:
             return "parse error"
         default:
