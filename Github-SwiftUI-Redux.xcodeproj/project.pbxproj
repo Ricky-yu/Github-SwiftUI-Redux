@@ -22,6 +22,9 @@
 		745FD59228C3C48300F85291 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59128C3C48300F85291 /* APIClient.swift */; };
 		745FD59428C3C59F00F85291 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59328C3C59F00F85291 /* APIError.swift */; };
 		745FD59728C3D0B900F85291 /* SessionMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59628C3D0B900F85291 /* SessionMiddleware.swift */; };
+		745FD59928C48A0500F85291 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59828C48A0500F85291 /* State.swift */; };
+		745FD59B28C48A3800F85291 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59A28C48A3800F85291 /* Action.swift */; };
+		745FD59D28C48A8200F85291 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745FD59C28C48A8200F85291 /* Reducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		745FD59128C3C48300F85291 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		745FD59328C3C59F00F85291 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		745FD59628C3D0B900F85291 /* SessionMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMiddleware.swift; sourceTree = "<group>"; };
+		745FD59828C48A0500F85291 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		745FD59A28C48A3800F85291 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		745FD59C28C48A8200F85291 /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				745FD58428C38CBB00F85291 /* Store.swift */,
+				745FD59828C48A0500F85291 /* State.swift */,
+				745FD59A28C48A3800F85291 /* Action.swift */,
+				745FD59C28C48A8200F85291 /* Reducer.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -344,13 +353,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				745FD58C28C394BA00F85291 /* SearchRepositoryResponse.swift in Sources */,
+				745FD59B28C48A3800F85291 /* Action.swift in Sources */,
 				745FD58828C393EE00F85291 /* GithubRepository.swift in Sources */,
 				745FD58F28C3954300F85291 /* GithubItemView.swift in Sources */,
+				745FD59928C48A0500F85291 /* State.swift in Sources */,
 				745FD59228C3C48300F85291 /* APIClient.swift in Sources */,
 				745FD58A28C3945D00F85291 /* GithubRepositoryOwner.swift in Sources */,
 				745FD58528C38CBB00F85291 /* Store.swift in Sources */,
 				745FD59728C3D0B900F85291 /* SessionMiddleware.swift in Sources */,
 				745FD55B28C3856900F85291 /* ContentView.swift in Sources */,
+				745FD59D28C48A8200F85291 /* Reducer.swift in Sources */,
 				745FD55928C3856900F85291 /* Github_SwiftUI_ReduxApp.swift in Sources */,
 				745FD59428C3C59F00F85291 /* APIError.swift in Sources */,
 			);
