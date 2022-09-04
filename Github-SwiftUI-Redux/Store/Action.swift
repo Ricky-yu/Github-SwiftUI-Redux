@@ -11,7 +11,7 @@ public protocol Action { }
 
 struct searchRepository: Action {
     var nameRepositroy: String
-    var page: String
+    var page: Int = 0
 }
 
 enum RepositoryListViewAction: Action {
