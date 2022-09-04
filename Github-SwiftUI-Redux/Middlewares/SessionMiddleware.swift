@@ -10,17 +10,17 @@ import Foundation
 func sessionMiddleware(network: APIClient) -> Middleware<Action> {
     { action in
         switch action {
-        case let action as fetchRepository:
+        case let action as searchRepository:
             let result = Task { () -> Action in
                 do {
                     let result = try await network.searchGithubRepository(repositroyName: action.nameRepositroy)
-                    return RepositoryListAction.updateRepositories(result.items)
+                    return RepositoryListViewAction.updateRepositories(result.items)
                 } catch APIError.responseError {
-                    return RepositoryListAction.showAlertMessage(message: APIError.responseError.message)
+                    return RepositoryListViewAction.showAlertMessage(message: APIError.responseError.message)
                 } catch APIError.jsonParseError {
-                    return RepositoryListAction.showAlertMessage(message: APIError.jsonParseError.message)
+                    return RepositoryListViewAction.showAlertMessage(message: APIError.jsonParseError.message)
                 } catch {
-                    return RepositoryListAction.showAlertMessage(message: APIError.unknownError.message)
+                    return RepositoryListViewAction.showAlertMessage(message: APIError.unknownError.message)
                 }
             }
             return await result.value
