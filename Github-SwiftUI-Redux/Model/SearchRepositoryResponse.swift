@@ -8,5 +8,5 @@
 import Foundation
 
 struct SearchRepositoryResponse: Codable {
-    var items: [GithubRepository]
+    let items: [GithubRepository]
 }

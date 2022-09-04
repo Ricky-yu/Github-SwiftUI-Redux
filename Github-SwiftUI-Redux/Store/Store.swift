@@ -7,43 +7,30 @@
 
 import Foundation
 
-struct AppState {
-    var searchText: String = ""
-    var items: [GithubRepository] = []
-    var isLoading: Bool = false
-    var isShowAlert: Bool = false
-    var alertMessage: String = ""
-}
+typealias Middleware<Action> = (Action) async -> Action?
 
-enum Action {
-    case updateRepositories([GithubRepository])
-    case search(text: String)
-    case showAlertMessage(message: String)
-}
-
-class Reducer {
-    func reduce(_ appState: inout AppState, _ action: Action) {
-        switch action {
-        case .updateRepositories(let repositories): break
-
-        case .search(let repositoryName): break
-
-        case .showAlertMessage(let errorMessage):
-            appState.alertMessage = errorMessage
-            appState.isShowAlert = true
-        }
-    }
-}
-
-class Store: ObservableObject {
-    var reducer: Reducer
+final class Store: ObservableObject {
     @Published var appState: AppState
-
-    init(appState: AppState, reducer: Reducer) {
+    var debounceTimer: Timer?
+    let reducer: Reducer
+    let middlewares: [Middleware<Action>]
+    init(appState: AppState, reducer: Reducer, middlewares: [Middleware<Action>] = []) {
         self.appState = appState
         self.reducer = reducer
+        self.middlewares = middlewares
     }
+
     func dispatch(_ action: Action) {
         self.reducer.reduce(&appState, action)
+        Task {
+            for middleware in middlewares {
+                guard let action = await middleware(action) else {
+                    break
+                }
+                await MainActor.run {
+                    self.dispatch(action)
+                }
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ struct GithubItemView: View {
     var repo: GithubRepository
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: "")) { image in
+            AsyncImage(url: URL(string: repo.repositoryOwner.repositoryImageUrl)) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -22,9 +22,9 @@ struct GithubItemView: View {
             .frame(width: 40, height: 40)
             .mask(RoundedRectangle(cornerRadius: 20))
             VStack(alignment: .leading, spacing: 2) {
-                Text("assd")
+                Text(repo.repositoryName)
                     .font(.body)
-                Label("sddd",
+                Label("\(repo.starCount)",
                       systemImage: "star")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
@@ -36,7 +36,6 @@ struct GithubItemView: View {
 
 struct GithubItemView_Previews: PreviewProvider {
     static var previews: some View {
-        GithubItemView(repo: GithubRepository(id: 0))
-            .previewLayout(.fixed(width: 400, height: 100))
+        GithubItemView(repo: .init(id: 0, repositoryName: "sdasd", starCount: 23, repositoryUrl: "", repositoryOwner: .init(repositoryImageUrl: ""))).previewLayout(.fixed(width: 400, height: 100))
     }
 }

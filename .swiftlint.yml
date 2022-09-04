@@ -63,7 +63,7 @@ disabled_rules:
   #- trailing_comma
   #- trailing_newline
   #- trailing_semicolon
-  #- trailing_whitespace
+  - trailing_whitespace
   #- type_body_length
   - type_name
   #- unneeded_break_in_switch
@@ -110,7 +110,7 @@ opt_in_rules:
   #- file_header # このルールの意味を理解していないため
   - file_name
   - first_where
-  - force_unwrapping
+  #- force_unwrapping
   - function_default_parameter_at_end
   - identical_operands
   - implicit_return

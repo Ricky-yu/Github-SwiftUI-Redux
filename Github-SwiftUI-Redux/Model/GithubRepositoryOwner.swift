@@ -8,5 +8,9 @@
 import Foundation
 
 struct GithubRepositoryOwner: Codable {
-    
+    let repositoryImageUrl: String
+
+    enum CodingKeys: String, CodingKey {
+        case repositoryImageUrl = "avatar_url"
+    }
 }
