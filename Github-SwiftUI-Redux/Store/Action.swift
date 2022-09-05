@@ -15,8 +15,9 @@ enum SearchRepositoryAction: Action {
 }
 
 enum RepositoryListViewAction: Action {
-    case updateRepositories([GithubRepository])
-    case search(text: String)
+    case setRepositories([GithubRepository])
+    case addRepositories([GithubRepository])
+    case onBottomOfList
     case showAlertMessage(message: String)
 
 }

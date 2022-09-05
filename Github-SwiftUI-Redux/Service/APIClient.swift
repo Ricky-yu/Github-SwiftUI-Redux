@@ -14,21 +14,30 @@ final class APIClient {
         self.baseURL = baseURL
     }
 
-    func searchGithubRepository(repositroyName: String) async throws -> SearchRepositoryResponse {
+    func searchGithubRepository(repositroyName: String, page: Int = 1) async throws -> SearchRepositoryResponse {
         let pathURL = URL(string: "/search/repositories", relativeTo: baseURL)!
         var urlComponents = URLComponents(url: pathURL, resolvingAgainstBaseURL: true)!
         urlComponents.queryItems = [
-            .init(name: "q", value: repositroyName)
+            .init(name: "q", value: repositroyName),
+            .init(name: "page", value: "\(page)")
         ]
         var request = URLRequest(url: urlComponents.url!)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let (data, response) = try await URLSession.shared.data(for: request)
         
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.unknownError
         }
-        if httpResponse.statusCode == 422 { throw APIError.responseError }
+
+        switch httpResponse.statusCode {
+        case 404:
+            throw APIError.responseError
+        case 422:
+            throw APIError.responseError
+        default:
+            break
+        }
+        
         do {
             let list = try JSONDecoder().decode(SearchRepositoryResponse.self, from: data)
             return list
