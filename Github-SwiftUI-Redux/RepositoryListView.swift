@@ -7,19 +7,35 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RepositoryListView: View {
     @EnvironmentObject var store: Store
     
     var body: some View {
         NavigationView {
-            ZStack {
+            VStack {
                 List(store.appState.items) { item in
                     GithubItemView(repo: item)
+                        .onAppear() {
+                            if store.appState.items.last == item {
+                                store.dispatch(RepositoryListViewAction.onBottomOfList)
+                                store.debounceTimer?.invalidate()
+                                store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                                    store.dispatch(SearchRepositoryAction.nextPage)
+                                }
+                            }
+                        }
                 }
-                if store.appState.isLoading {
+                .overlay {
+                    if store.appState.isLoading {
+                        ProgressView()
+                            .scaleEffect(1.5, anchor: .center)
+                            .tint(.cyan)
+                    }
+                }
+                if store.appState.onBottomOfList {
                     ProgressView()
                         .scaleEffect(1.5, anchor: .center)
-                        .tint(.cyan)
+                        .tint(.gray)
                 }
             }
             .navigationTitle(Text("Github Repository"))
@@ -29,12 +45,12 @@ struct ContentView: View {
             store.debounceTimer?.invalidate()
             store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                 if !newSearchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    store.dispatch(searchRepository.init(nameRepositroy: newSearchText))
+                    store.dispatch(SearchRepositoryAction.search(text: newSearchText))
                 }
             }
         }
         .onSubmit(of: .search, {
-            store.dispatch(searchRepository.init(nameRepositroy: store.appState.searchText))
+            store.dispatch(SearchRepositoryAction.search(text: store.appState.searchText))
         })
         .alert(isPresented: $store.appState.isShowAlert) {
             Alert(
@@ -51,7 +67,7 @@ struct ContentView_Previews: PreviewProvider {
         let reducer = Reducer()
         let store = Store(appState: appState, reducer: reducer)
 
-        ContentView()
+        RepositoryListView()
             .environmentObject(store)
     }
 }

@@ -11,6 +11,8 @@ struct AppState {
     var searchText: String = ""
     var items: [GithubRepository] = []
     var isLoading = false
+    var onBottomOfList = false
     var isShowAlert = false
     var alertMessage: String = ""
+    var currentPage: Int = 1
 }

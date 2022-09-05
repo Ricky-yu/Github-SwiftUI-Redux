@@ -9,14 +9,15 @@ import Foundation
 
 protocol Action { }
 
-struct searchRepository: Action {
-    var nameRepositroy: String
-    var page: Int = 0
+enum SearchRepositoryAction: Action {
+    case search(text: String)
+    case nextPage
 }
 
 enum RepositoryListViewAction: Action {
-    case updateRepositories([GithubRepository])
-    case search(text: String)
+    case setRepositories([GithubRepository])
+    case addRepositories([GithubRepository])
+    case onBottomOfList
     case showAlertMessage(message: String)
 
 }
