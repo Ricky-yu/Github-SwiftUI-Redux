@@ -12,30 +12,30 @@ struct RepositoryListView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                VStack {
-                    List(store.appState.items) { item in
-                        GithubItemView(repo: item)
-                            .onAppear() {
-                                if store.appState.items.last == item {
-                                    store.dispatch(RepositoryListViewAction.onBottomOfList)
-                                    store.debounceTimer?.invalidate()
-                                    store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                                        store.dispatch(SearchRepositoryAction.nextPage)
-                                    }
+            VStack {
+                List(store.appState.items) { item in
+                    GithubItemView(repo: item)
+                        .onAppear() {
+                            if store.appState.items.last == item {
+                                store.dispatch(RepositoryListViewAction.onBottomOfList)
+                                store.debounceTimer?.invalidate()
+                                store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                                    store.dispatch(SearchRepositoryAction.nextPage)
                                 }
                             }
-                    }
-                    if store.appState.onBottomOfList {
+                        }
+                }
+                .overlay {
+                    if store.appState.isLoading {
                         ProgressView()
                             .scaleEffect(1.5, anchor: .center)
-                            .tint(.gray)
+                            .tint(.cyan)
                     }
                 }
-                if store.appState.isLoading {
+                if store.appState.onBottomOfList {
                     ProgressView()
                         .scaleEffect(1.5, anchor: .center)
-                        .tint(.cyan)
+                        .tint(.gray)
                 }
             }
             .navigationTitle(Text("Github Repository"))
