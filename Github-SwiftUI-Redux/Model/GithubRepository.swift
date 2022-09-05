@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct GithubRepository: Codable, Identifiable {
+struct GithubRepository: Codable, Identifiable, Equatable {
+    static func == (lhs: GithubRepository, rhs: GithubRepository) -> Bool {
+        lhs.id == rhs.id
+    }
+
     let id: Int
     let repositoryName: String
     let starCount: Int
