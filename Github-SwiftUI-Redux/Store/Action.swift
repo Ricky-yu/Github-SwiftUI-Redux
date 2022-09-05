@@ -9,9 +9,9 @@ import Foundation
 
 protocol Action { }
 
-struct searchRepository: Action {
-    var nameRepositroy: String
-    var page: Int = 0
+enum SearchRepositoryAction: Action {
+    case search(text: String)
+    case nextPage
 }
 
 enum RepositoryListViewAction: Action {
