@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RepositoryListView: View {
     @EnvironmentObject var store: Store
     
     var body: some View {
@@ -67,7 +67,7 @@ struct ContentView_Previews: PreviewProvider {
         let reducer = Reducer()
         let store = Store(appState: appState, reducer: reducer)
 
-        ContentView()
+        RepositoryListView()
             .environmentObject(store)
     }
 }
