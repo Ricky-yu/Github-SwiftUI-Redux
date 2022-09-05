@@ -7,7 +7,8 @@
 
 import Foundation
 
-typealias Middleware<Action> = (Action) async -> Action?
+typealias Dispatcher = (Action) -> Void
+typealias Middleware<Action> = (AppState, Action, @escaping Dispatcher) -> Void
 
 final class Store: ObservableObject {
     @Published var appState: AppState
@@ -22,15 +23,9 @@ final class Store: ObservableObject {
 
     func dispatch(_ action: Action) {
         self.reducer.reduce(&appState, action)
-        Task {
-            for middleware in middlewares {
-                guard let action = await middleware(action) else {
-                    break
-                }
-                await MainActor.run {
-                    self.dispatch(action)
-                }
-            }
+        
+        for middleware in middlewares {
+            middleware(appState, action, dispatch(_:))
         }
     }
 }
