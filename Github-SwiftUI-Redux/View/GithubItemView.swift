@@ -37,6 +37,7 @@ struct GithubItemView: View {
 
 struct GithubItemView_Previews: PreviewProvider {
     static var previews: some View {
-        GithubItemView(repo: .init(id: 0, repositoryName: "sdasd", starCount: 23, repositoryUrl: "", repositoryOwner: .init(repositoryImageUrl: ""))).previewLayout(.fixed(width: 400, height: 100))
+        GithubItemView(repo: .init(id: 0, repositoryName: "sdasd", starCount: 23, repositoryUrl: "", repositoryOwner: .init(repositoryImageUrl: "")))
+            .previewLayout(.fixed(width: 200, height: 100))
     }
 }

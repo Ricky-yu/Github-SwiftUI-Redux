@@ -11,44 +11,37 @@ func sessionMiddleware(network: APIClient) -> Middleware<Action> {
     { state, action, dispatch in
         switch action {
         case let action as SearchRepositoryAction:
-            switch action {
-            case .search(let searchText):
-                Task {
-                    let result = Task { () -> Action in
-                        do {
-                            let result = try await network.searchGithubRepository(repositroyName: searchText)
-                            return RepositoryListViewAction.setRepositories(result.items)
-                        } catch APIError.responseError {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.responseError.message)
-                        } catch APIError.jsonParseError {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.jsonParseError.message)
-                        } catch {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.unknownError.message)
-                        }
+            Task {
+                let result = Task { () throws -> Action in
+                    switch action {
+                    case .search(let searchText):
+                        let result = try await network.searchGithubRepository(repositroyName: searchText)
+                        return RepositoryListViewAction.setRepositories(result.items)
+                    case .nextPage:
+                        let page = state.currentPage
+                        let searchText = state.searchText
+                        let result = try await network.searchGithubRepository(repositroyName: searchText, page: page)
+                        return RepositoryListViewAction.addRepositories(result.items)
                     }
-                    let action = await result.value
+                }
+                do {
+                    let action = try await result.value
                     await MainActor.run {
                         dispatch(action)
                     }
-                }
-            case .nextPage:
-                Task {
-                    let result = Task { () -> Action in
-                        let page = state.currentPage
-                        let searchText = state.searchText
-                        do {
-                            let result = try await network.searchGithubRepository(repositroyName: searchText, page: page)
-                            return RepositoryListViewAction.addRepositories(result.items)
-                        } catch APIError.responseError {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.responseError.message)
-                        } catch APIError.jsonParseError {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.jsonParseError.message)
-                        } catch {
-                            return RepositoryListViewAction.showAlertMessage(message: APIError.unknownError.message)
-                        }
-                    }
-                    let action = await result.value
+                } catch APIError.responseError {
                     await MainActor.run {
+                        let action = RepositoryListViewAction.showAlertMessage(message: APIError.responseError.message)
+                        dispatch(action)
+                    }
+                } catch APIError.jsonParseError {
+                    await MainActor.run {
+                        let action = RepositoryListViewAction.showAlertMessage(message: APIError.jsonParseError.message)
+                        dispatch(action)
+                    }
+                } catch {
+                    await MainActor.run {
+                        let action = RepositoryListViewAction.showAlertMessage(message: APIError.unknownError.message)
                         dispatch(action)
                     }
                 }
