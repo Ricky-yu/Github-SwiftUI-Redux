@@ -16,6 +16,6 @@ Swift 5.5
 <p align="left">
   <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--m5BdPzhS--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://i.imgur.com/riadAin.gif" width="400" title="hover text">
 <align="Right">
-  <img src="https://github.com/Ricky-yu/Github-SwiftUI-Redux/blob/feature/demoVideo.gif" width="300" title="hover text">
+  <img src="https://github.com/Ricky-yu/Github-SwiftUI-Redux/blob/master/demoVideo.gif" width="300" title="hover text">
 <p>
 </p>
