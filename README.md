@@ -6,7 +6,7 @@ Search Github Repository APP
 Use SwiftUI+Redux
 </p>
 <p align="left">
-Xcode 13.2
+Xcode 13.４
 </p>
 <p align="left">
 Swift 5.5
