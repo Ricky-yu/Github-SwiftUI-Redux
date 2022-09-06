@@ -17,7 +17,6 @@ class Reducer {
             appState.currentPage = 1
         case RepositoryListViewAction.addRepositories(let repositories):
             appState.items += repositories
-            appState.currentPage += 1
         case RepositoryListViewAction.showAlertMessage(let errorMessage):
             appState.alertMessage = errorMessage
             appState.isShowAlert = true
@@ -25,10 +24,12 @@ class Reducer {
             appState.onBottomOfList = true
         case let searchRepositoryAction as SearchRepositoryAction:
             switch searchRepositoryAction {
-            case .search(_:):
+            case .search(let searchText):
+                appState.searchText = searchText
                 appState.isLoading = true
             case .nextPage:
                 appState.onBottomOfList = true
+                appState.currentPage += 1
             }
         default:
             break

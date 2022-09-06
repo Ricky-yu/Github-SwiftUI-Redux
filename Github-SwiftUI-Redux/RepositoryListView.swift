@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RepositoryListView: View {
-    @EnvironmentObject var store: Store
+    @ObservedObject var store: Store
     
     var body: some View {
         NavigationView {
@@ -67,7 +67,6 @@ struct ContentView_Previews: PreviewProvider {
         let reducer = Reducer()
         let store = Store(appState: appState, reducer: reducer)
 
-        RepositoryListView()
-            .environmentObject(store)
+        RepositoryListView(store: store)
     }
 }
