@@ -9,11 +9,13 @@ import Foundation
 
 protocol Action { }
 
+/// リポジトリ検索アクション
 enum SearchRepositoryAction: Action {
     case search(text: String)
     case nextPage
 }
 
+/// 画面に関するアクション
 enum RepositoryListViewAction: Action {
     case setRepositories([GithubRepository])
     case addRepositories([GithubRepository])

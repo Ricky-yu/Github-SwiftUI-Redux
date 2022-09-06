@@ -12,7 +12,7 @@ class Reducer {
         appState.isLoading = false
         appState.onBottomOfList = false
         switch action {
-        case RepositoryListViewAction.setRepositories(let repositories):
+        case RepositoryListViewAction.setRepositories(let repositories):// 画面に関するアクション
             appState.items = repositories
             appState.currentPage = 1
         case RepositoryListViewAction.addRepositories(let repositories):
@@ -22,7 +22,7 @@ class Reducer {
             appState.isShowAlert = true
         case RepositoryListViewAction.onBottomOfList:
             appState.onBottomOfList = true
-        case let searchRepositoryAction as SearchRepositoryAction:
+        case let searchRepositoryAction as SearchRepositoryAction: // リポジトリ検索アクション
             switch searchRepositoryAction {
             case .search(let searchText):
                 appState.searchText = searchText
