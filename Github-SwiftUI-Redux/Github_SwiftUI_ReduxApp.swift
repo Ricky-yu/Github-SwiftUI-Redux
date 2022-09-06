@@ -16,7 +16,7 @@ struct Github_SwiftUI_ReduxApp: App {
             let sessionMiddleware = sessionMiddleware(network: APIClient())
             let store = Store(appState: appState, reducer: reducer, middlewares: [sessionMiddleware])
 
-            RepositoryListView().environmentObject(store)
+            RepositoryListView(store: store)
         }
     }
 }

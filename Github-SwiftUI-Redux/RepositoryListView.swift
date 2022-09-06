@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RepositoryListView: View {
-    @EnvironmentObject var store: Store
+    @ObservedObject var store: Store
     
     var body: some View {
         NavigationView {
@@ -16,9 +16,10 @@ struct RepositoryListView: View {
                 List(store.appState.items) { item in
                     GithubItemView(repo: item)
                         .onAppear() {
-                            if store.appState.items.last == item {
+                            if store.appState.items.last == item { // 画面の一番下へ到達した
                                 store.dispatch(RepositoryListViewAction.onBottomOfList)
-                                store.debounceTimer?.invalidate()
+
+                                store.debounceTimer?.invalidate() // スロットリング
                                 store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                                     store.dispatch(SearchRepositoryAction.nextPage)
                                 }
@@ -26,13 +27,13 @@ struct RepositoryListView: View {
                         }
                 }
                 .overlay {
-                    if store.appState.isLoading {
+                    if store.appState.isLoading { // 真ん中のロード画面
                         ProgressView()
                             .scaleEffect(1.5, anchor: .center)
                             .tint(.cyan)
                     }
                 }
-                if store.appState.onBottomOfList {
+                if store.appState.onBottomOfList {// 下のロード画面
                     ProgressView()
                         .scaleEffect(1.5, anchor: .center)
                         .tint(.gray)
@@ -41,8 +42,8 @@ struct RepositoryListView: View {
             .navigationTitle(Text("Github Repository"))
         }
         .searchable(text: $store.appState.searchText)
-        .onChange(of: store.appState.searchText) { newSearchText in
-            store.debounceTimer?.invalidate()
+        .onChange(of: store.appState.searchText) { newSearchText in // インクリメンタルサーチ
+            store.debounceTimer?.invalidate() // スロットリング
             store.debounceTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                 if !newSearchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     store.dispatch(SearchRepositoryAction.search(text: newSearchText))
@@ -67,7 +68,6 @@ struct ContentView_Previews: PreviewProvider {
         let reducer = Reducer()
         let store = Store(appState: appState, reducer: reducer)
 
-        RepositoryListView()
-            .environmentObject(store)
+        RepositoryListView(store: store)
     }
 }
